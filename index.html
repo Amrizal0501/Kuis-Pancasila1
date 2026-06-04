@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Website Pembelajaran Pancasila</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:#f1f5f9;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    background:#1e293b;
+    color:white;
+    min-height:100vh;
+}
+
+.logo{
+    text-align:center;
+    padding:25px;
+    font-size:24px;
+    font-weight:bold;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    padding:18px 20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu li:hover{
+    background:#334155;
+}
+
+/* CONTENT */
+
+.content{
+    flex:1;
+    padding:30px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table th,
+table td{
+    border:1px solid #ddd;
+    padding:12px;
+}
+
+table th{
+    background:#2563eb;
+    color:white;
+}
+
+/* QUIZ */
+
+.quiz-frame{
+    width:100%;
+    height:900px;
+    border:none;
+    border-radius:12px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    margin-top:15px;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+@media(max-width:768px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        min-height:auto;
+    }
+
+    .quiz-frame{
+        height:700px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        KUIS PANCASILA
+    </div>
+
+    <ul class="menu">
+        <li onclick="showPage('dashboard')">🏠 Dashboard</li>
+        <li onclick="showPage('materi')">📚 Materi</li>
+        <li onclick="showPage('quiz')">📝 Kuis Pancasila</li>
+        <li onclick="showPage('profil')">👤 Profil</li>
+    </ul>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content">
+
+    <!-- DASHBOARD -->
+
+    <div id="dashboard" class="page active">
+
+        <div class="card">
+
+            <h1>Dashboard</h1>
+
+            <p>
+                Selamat datang di Website Pembelajaran Pancasila.
+            </p>
+
+            <br>
+
+            <p>
+                Gunakan menu di sebelah kiri untuk membaca materi dan mengerjakan kuis.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- MATERI -->
+
+    <div id="materi" class="page">
+
+        <div class="card">
+
+            <h1>Materi Pancasila</h1>
+
+            <table>
+
+                <tr>
+                    <th>No</th>
+                    <th>Sila</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>Ketuhanan Yang Maha Esa</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Kemanusiaan yang Adil dan Beradab</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Persatuan Indonesia</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan / Perwakilan</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>Keadilan Sosial bagi Seluruh Rakyat Indonesia</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- QUIZ -->
+
+    <div id="quiz" class="page">
+
+        <div class="card">
+
+            <h1>Kuis Pancasila</h1>
+
+            <p>
+                Kerjakan kuis berikut.
+            </p>
+
+            <br>
+
+            <iframe
+                class="quiz-frame"
+                src="https://script.google.com/macros/s/AKfycby20TMDclxjnkXOlFszRV6lCJ9Lacu0QpmjuOpE-XQtwsJ8umrCMegoFioEzEHlW_xg/exec">
+            </iframe>
+
+            <br>
+
+            <a
+                class="btn"
+                href="https://script.google.com/macros/s/AKfycby20TMDclxjnkXOlFszRV6lCJ9Lacu0QpmjuOpE-XQtwsJ8umrCMegoFioEzEHlW_xg/exec"
+                target="_blank">
+                Buka Kuis di Tab Baru
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- PROFIL -->
+
+    <div id="profil" class="page">
+
+        <div class="card">
+
+            <h1>Tentang Website</h1>
+
+            <p>
+                Website ini dibuat sebagai media pembelajaran dan evaluasi materi Pancasila.
+            </p>
+
+            <br>
+
+            <p>
+                Dibangun menggunakan HTML, CSS, JavaScript, GitHub Pages, dan Google Apps Script.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showPage(pageId){
+
+    document.querySelectorAll('.page')
+    .forEach(page=>{
+        page.classList.remove('active');
+    });
+
+    document
+        .getElementById(pageId)
+        .classList.add('active');
+}
+
+</script>
+
+</body>
+</html>
