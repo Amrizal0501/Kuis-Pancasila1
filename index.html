@@ -1,94 +1,232 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Learning Pancasila & Office Manager</title>
-<style>
-body{margin:0;font-family:Segoe UI,sans-serif;background:#f4f6f9;display:flex}
-.sidebar{width:260px;background:#0f172a;color:#fff;height:100vh;overflow:auto}
-.logo{padding:20px;font-size:22px;font-weight:bold;text-align:center}
-.menu-item,.dropdown-btn{padding:14px 20px;cursor:pointer}
-.menu-item:hover,.dropdown-btn:hover{background:#1e293b}
-.submenu{display:none;background:#172554}
-.submenu div{padding:12px 40px;cursor:pointer}
-.content{flex:1;padding:20px}
-.page{display:none}.active{display:block}
-.card{background:#fff;padding:20px;border-radius:12px;margin-bottom:15px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
-.stat{background:#fff;padding:20px;border-radius:12px}
-button{padding:10px 16px}
-</style>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PT. Chandra Kirana</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { display:flex; min-height:100vh; background:#f4f6f9; }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg,#2c3e50,#1a242f);
+      color:#fff;
+      padding:20px 0;
+      flex-shrink:0;
+      transition: all 0.3s;
+    }
+    .sidebar h2 {
+      text-align:center;
+      padding:0 15px 20px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      font-size:18px;
+    }
+    .menu-item {
+      padding:14px 25px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transition:0.2s;
+      font-size:15px;
+    }
+    .menu-item:hover, .menu-item.active {
+      background:rgba(255,255,255,0.1);
+      border-left:4px solid #4cafef;
+    }
+    .submenu {
+      display:none;
+      flex-direction:column;
+      background:rgba(0,0,0,0.2);
+    }
+    .submenu.show { display:flex; }
+    .submenu .menu-item { padding-left:45px; font-size:14px; }
+
+    .content { flex:1; padding:30px; overflow-y:auto; }
+    .page { display:none; animation: fadeIn 0.4s ease; }
+    .page.active { display:block; }
+    @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+    h1 { color:#2c3e50; margin-bottom:15px; }
+    .card {
+      background:#fff;
+      border-radius:10px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom:20px;
+    }
+    .dashboard-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+    .dashboard-grid .card { text-align:center; }
+    .dashboard-grid .card .num { font-size:32px; font-weight:bold; color:#4cafef; }
+
+    .materi-section h3 { color:#2c3e50; margin:15px 0 8px; }
+    .materi-section ul { margin-left:20px; margin-bottom:10px; }
+    .materi-section p { line-height:1.7; margin-bottom:10px; }
+
+    .contact-info p { margin-bottom:10px; font-size:15px; }
+
+    .quiz-frame-wrap iframe, .nilai-frame-wrap iframe {
+      width:100%;
+      height:80vh;
+      border:none;
+      border-radius:10px;
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction:column; }
+      .sidebar { width:100%; }
+    }
+  </style>
 </head>
 <body>
-<div class="sidebar">
-<div class="logo">E-Learning</div>
-<div class="menu-item" onclick="showPage('dashboard')">Dashboard</div>
 
-<div class="dropdown-btn" onclick="toggleSub('officeSub')">Office Manager ▼</div>
-<div class="submenu" id="officeSub">
-<div onclick="showPage('officeMateri')">Materi Skema</div>
-<div onclick="showPage('officeUji')">Uji Kompetensi</div>
-</div>
+  <div class="sidebar">
+    <h2>🏢 PT. Chandra Kirana</h2>
 
-<div class="dropdown-btn" onclick="toggleSub('kuisSub')">Kuis ▼</div>
-<div class="submenu" id="kuisSub">
-<div onclick="showPage('mudah')">Kuis Mudah</div>
-<div onclick="showPage('sedang')">Kuis Sedang</div>
-<div onclick="showPage('sulit')">Kuis Sulit</div>
-</div>
+    <div class="menu-item active" onclick="showPage('dashboard', this)">🏠 Dashboard</div>
 
-<div class="menu-item" onclick="showPage('nilai')">Hasil Nilai</div>
-</div>
+    <div class="menu-item" onclick="toggleSubmenu('kuisMenu', this)">📝 Kuis</div>
+    <div class="submenu" id="kuisMenu">
+      <div class="menu-item" onclick="showQuiz('pancasila')">🇮🇩 Kuis Pancasila</div>
+      <div class="menu-item" onclick="showQuiz('perkantoran')">🏢 Kuis Adm. Perkantoran</div>
+      <div class="menu-item" onclick="showQuiz('kearsipan')">🗂️ Kuis Kearsipan</div>
+    </div>
 
-<div class="content">
+    <div class="menu-item" onclick="showPage('nilai', this)">📊 Lihat Nilai</div>
+    <div class="menu-item" onclick="showPage('materi', this)">📖 Materi</div>
+    <div class="menu-item" onclick="showPage('kontak', this)">✉️ Kontak</div>
+  </div>
 
-<div id="dashboard" class="page active">
-<h1>Dashboard</h1>
-<div class="stats">
-<div class="stat"><h2>125</h2><p>Peserta</p></div>
-<div class="stat"><h2>20</h2><p>Materi</p></div>
-<div class="stat"><h2>45</h2><p>Soal</p></div>
-</div>
-</div>
+  <div class="content">
 
-<div id="officeMateri" class="page">
-<div class="card"><h2>Materi Office Manager</h2>
-<ul><li>Administrasi Perkantoran</li><li>Komunikasi Bisnis</li><li>Microsoft Office</li></ul>
-</div></div>
+    <!-- DASHBOARD -->
+    <div class="page active" id="dashboard">
+      <h1>PT. Chandra Kirana</h1>
+      <p>Selamat datang di Website Edukasi PT. Chandra Kirana! Gunakan menu di samping untuk mengakses kuis, melihat rekap nilai, materi pembelajaran, dan informasi kontak.</p>
+      <div class="dashboard-grid">
+        <div class="card">
+          <div class="num">3</div>
+          <div>Jenis Kuis Tersedia</div>
+        </div>
+        <div class="card">
+          <div class="num">3</div>
+          <div>Materi Pembelajaran</div>
+        </div>
+        <div class="card">
+          <div class="num">100%</div>
+          <div>Online & Gratis</div>
+        </div>
+      </div>
+    </div>
 
-<div id="officeUji" class="page">
-<div class="card">
-<h2>Uji Kompetensi Office Manager</h2>
-<p>1. Fungsi utama Microsoft Excel?</p>
-<label><input type="radio" name="o1" value="a"> Pengolah angka</label><br>
-<label><input type="radio" name="o1" value="b"> Editor video</label><br>
-<button onclick="cekOffice()">Selesai</button>
-<div id="officeHasil"></div>
-</div></div>
+    <!-- KUIS -->
+    <div class="page" id="kuis">
+      <h1 id="kuisTitle">Kuis</h1>
+      <div class="card quiz-frame-wrap">
+        <iframe id="quizFrame" src=""></iframe>
+      </div>
+    </div>
 
-<div id="mudah" class="page"><div class="card"><h2>Kuis Mudah</h2></div></div>
-<div id="sedang" class="page"><div class="card"><h2>Kuis Sedang</h2></div></div>
-<div id="sulit" class="page"><div class="card"><h2>Kuis Sulit</h2></div></div>
+    <!-- NILAI -->
+    <div class="page" id="nilai">
+      <h1>Rekap Nilai</h1>
+      <div class="card nilai-frame-wrap">
+        <iframe id="nilaiFrame" src="https://script.google.com/macros/s/AKfycbxDWpOfmSgc9yw9vWJMO8ryyB98p1FgGSaU5FUsLRdRFhEYBif0_OhA0z_CtqXIpurYNQ/exec?page=nilai"></iframe>
+      </div>
+    </div>
 
-<div id="nilai" class="page"><div class="card"><h2>Nilai</h2><div id="nilaiBox">Belum ada nilai</div></div></div>
+    <!-- MATERI -->
+    <div class="page" id="materi">
+      <h1>Materi Pembelajaran</h1>
 
-</div>
+      <div class="card materi-section">
+        <h3>1. Pancasila</h3>
+        <p>Pancasila adalah dasar negara dan ideologi Indonesia yang terdiri dari lima sila:</p>
+        <ul>
+          <li>Ketuhanan Yang Maha Esa</li>
+          <li>Kemanusiaan yang Adil dan Beradab</li>
+          <li>Persatuan Indonesia</li>
+          <li>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan</li>
+          <li>Keadilan Sosial bagi Seluruh Rakyat Indonesia</li>
+        </ul>
+        <p>Pancasila berfungsi sebagai pandangan hidup bangsa, sumber hukum tertinggi, serta pemersatu seluruh elemen bangsa Indonesia yang majemuk.</p>
+      </div>
 
-<script>
-function showPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-}
-function toggleSub(id){
-let x=document.getElementById(id);
-x.style.display=x.style.display==='block'?'none':'block';
-}
-function cekOffice(){
-let nilai=document.querySelector('input[name=o1]:checked')?.value==='a'?100:0;
-document.getElementById('officeHasil').innerHTML='Nilai: '+nilai;
-document.getElementById('nilaiBox').innerHTML='Office Manager: '+nilai;
-}
-</script>
+      <div class="card materi-section">
+        <h3>2. Administrasi Perkantoran</h3>
+        <p>Administrasi Perkantoran adalah rangkaian kegiatan rutin perkantoran yang berkaitan dengan pengelolaan data dan informasi untuk mencapai tujuan organisasi secara efektif dan efisien.</p>
+        <ul>
+          <li><b>Fungsi Administrasi:</b> Perencanaan, pengorganisasian, pengarahan, pengawasan</li>
+          <li><b>Aktivitas:</b> Korespondensi, kearsipan, pengetikan, penggandaan dokumen</li>
+          <li><b>Tujuan:</b> Menunjang kelancaran tugas pokok organisasi</li>
+        </ul>
+        <p>Seorang administrator kantor harus memiliki kemampuan komunikasi, manajemen waktu, dan penguasaan teknologi perkantoran.</p>
+      </div>
+
+      <div class="card materi-section">
+        <h3>3. Kearsipan</h3>
+        <p>Kearsipan adalah proses pengelolaan dokumen/arsip mulai dari penciptaan, penggunaan, pemeliharaan, hingga penyusutan secara sistematis.</p>
+        <ul>
+          <li><b>Jenis Arsip:</b> Arsip dinamis (aktif & inaktif) dan arsip statis</li>
+          <li><b>Sistem Penyimpanan:</b> Sistem abjad, sistem nomor, sistem subjek, sistem geografis, sistem kronologis</li>
+          <li><b>Tujuan Kearsipan:</b> Menjamin keselamatan bahan bukti pertanggungjawaban serta memudahkan penemuan kembali arsip secara cepat dan tepat</li>
+        </ul>
+        <p>Pengelolaan arsip yang baik mendukung efisiensi kerja dan menjadi sumber informasi penting bagi organisasi.</p>
+      </div>
+    </div>
+
+    <!-- KONTAK -->
+    <div class="page" id="kontak">
+      <h1>Kontak Kami</h1>
+      <div class="card contact-info">
+        <p><b>📧 Email:</b> admin@chandrakirana.com</p>
+        <p><b>📱 WhatsApp:</b> +62 812-3456-7890</p>
+        <p><b>📍 Alamat:</b> PT. Chandra Kirana, Makassar, Sulawesi Selatan</p>
+        <p><b>🕒 Jam Operasional:</b> Senin - Jumat, 08:00 - 16:00 WITA</p>
+        <p>Silakan hubungi kami melalui kontak di atas untuk pertanyaan, saran, atau kerja sama terkait materi pembelajaran.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const QUIZ_URL = "https://script.google.com/macros/s/AKfycbxDWpOfmSgc9yw9vWJMO8ryyB98p1FgGSaU5FUsLRdRFhEYBif0_OhA0z_CtqXIpurYNQ/exec";
+
+    function showPage(id, el) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function toggleSubmenu(id) {
+      document.getElementById(id).classList.toggle('show');
+    }
+
+    function showQuiz(jenis) {
+      let title = "";
+      let param = "";
+      if (jenis === 'pancasila') { title = "Kuis Pancasila"; param = "pancasila"; }
+      if (jenis === 'perkantoran') { title = "Kuis Administrasi Perkantoran"; param = "perkantoran"; }
+      if (jenis === 'kearsipan') { title = "Kuis Kearsipan"; param = "kearsipan"; }
+
+      document.getElementById('kuisTitle').innerText = title;
+      document.getElementById('quizFrame').src = QUIZ_URL + "?jenis=" + param;
+
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('kuis').classList.add('active');
+
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+    }
+  </script>
+
 </body>
 </html>
