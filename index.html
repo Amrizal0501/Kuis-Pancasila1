@@ -15,7 +15,6 @@
       color:#fff;
       padding:20px 0;
       flex-shrink:0;
-      transition: all 0.3s;
     }
     .sidebar h2 {
       text-align:center;
@@ -36,13 +35,6 @@
       background:rgba(255,255,255,0.1);
       border-left:4px solid #4cafef;
     }
-    .submenu {
-      display:none;
-      flex-direction:column;
-      background:rgba(0,0,0,0.2);
-    }
-    .submenu.show { display:flex; }
-    .submenu .menu-item { padding-left:45px; font-size:14px; }
 
     .content { flex:1; padding:30px; overflow-y:auto; }
     .page { display:none; animation: fadeIn 0.4s ease; }
@@ -74,7 +66,7 @@
 
     .quiz-frame-wrap iframe, .nilai-frame-wrap iframe {
       width:100%;
-      height:80vh;
+      height:85vh;
       border:none;
       border-radius:10px;
     }
@@ -91,14 +83,7 @@
     <h2>🏢 PT. Chandra Kirana</h2>
 
     <div class="menu-item active" onclick="showPage('dashboard', this)">🏠 Dashboard</div>
-
-    <div class="menu-item" onclick="toggleSubmenu('kuisMenu', this)">📝 Kuis</div>
-    <div class="submenu" id="kuisMenu">
-      <div class="menu-item" onclick="showQuiz('pancasila')">🇮🇩 Kuis Pancasila</div>
-      <div class="menu-item" onclick="showQuiz('perkantoran')">🏢 Kuis Adm. Perkantoran</div>
-      <div class="menu-item" onclick="showQuiz('kearsipan')">🗂️ Kuis Kearsipan</div>
-    </div>
-
+    <div class="menu-item" onclick="showPage('kuis', this)">📝 Kuis</div>
     <div class="menu-item" onclick="showPage('nilai', this)">📊 Lihat Nilai</div>
     <div class="menu-item" onclick="showPage('materi', this)">📖 Materi</div>
     <div class="menu-item" onclick="showPage('kontak', this)">✉️ Kontak</div>
@@ -128,9 +113,9 @@
 
     <!-- KUIS -->
     <div class="page" id="kuis">
-      <h1 id="kuisTitle">Kuis</h1>
+      <h1>Kuis</h1>
       <div class="card quiz-frame-wrap">
-        <iframe id="quizFrame" src=""></iframe>
+        <iframe src="https://script.google.com/macros/s/AKfycbxDWpOfmSgc9yw9vWJMO8ryyB98p1FgGSaU5FUsLRdRFhEYBif0_OhA0z_CtqXIpurYNQ/exec"></iframe>
       </div>
     </div>
 
@@ -138,7 +123,7 @@
     <div class="page" id="nilai">
       <h1>Rekap Nilai</h1>
       <div class="card nilai-frame-wrap">
-        <iframe id="nilaiFrame" src="https://script.google.com/macros/s/AKfycbxDWpOfmSgc9yw9vWJMO8ryyB98p1FgGSaU5FUsLRdRFhEYBif0_OhA0z_CtqXIpurYNQ/exec?page=nilai"></iframe>
+        <iframe src="https://script.google.com/macros/s/AKfycbxDWpOfmSgc9yw9vWJMO8ryyB98p1FgGSaU5FUsLRdRFhEYBif0_OhA0z_CtqXIpurYNQ/exec?page=nilai"></iframe>
       </div>
     </div>
 
@@ -148,37 +133,39 @@
 
       <div class="card materi-section">
         <h3>1. Pancasila</h3>
-        <p>Pancasila adalah dasar negara dan ideologi Indonesia yang terdiri dari lima sila:</p>
+        <p>Pancasila adalah dasar negara dan ideologi bangsa Indonesia yang menjadi pedoman dalam kehidupan bermasyarakat, berbangsa, dan bernegara. Pancasila terdiri dari lima sila:</p>
         <ul>
-          <li>Ketuhanan Yang Maha Esa</li>
-          <li>Kemanusiaan yang Adil dan Beradab</li>
-          <li>Persatuan Indonesia</li>
-          <li>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan</li>
-          <li>Keadilan Sosial bagi Seluruh Rakyat Indonesia</li>
+          <li><b>Ketuhanan Yang Maha Esa</b> — mengandung nilai religius dan toleransi antar umat beragama.</li>
+          <li><b>Kemanusiaan yang Adil dan Beradab</b> — menjunjung tinggi nilai-nilai kemanusiaan dan hak asasi manusia.</li>
+          <li><b>Persatuan Indonesia</b> — mengutamakan persatuan dan kesatuan bangsa di atas kepentingan pribadi atau golongan.</li>
+          <li><b>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan</b> — menjunjung nilai demokrasi dan musyawarah.</li>
+          <li><b>Keadilan Sosial bagi Seluruh Rakyat Indonesia</b> — mewujudkan kesejahteraan dan keadilan secara merata.</li>
         </ul>
-        <p>Pancasila berfungsi sebagai pandangan hidup bangsa, sumber hukum tertinggi, serta pemersatu seluruh elemen bangsa Indonesia yang majemuk.</p>
+        <p>Pancasila berfungsi sebagai dasar negara, pandangan hidup bangsa, sumber dari segala sumber hukum, serta pemersatu bangsa Indonesia yang beragam suku, agama, ras, dan budaya. Penerapan nilai-nilai Pancasila penting dilakukan dalam kehidupan sehari-hari, baik di lingkungan keluarga, sekolah, tempat kerja, maupun masyarakat.</p>
       </div>
 
       <div class="card materi-section">
         <h3>2. Administrasi Perkantoran</h3>
-        <p>Administrasi Perkantoran adalah rangkaian kegiatan rutin perkantoran yang berkaitan dengan pengelolaan data dan informasi untuk mencapai tujuan organisasi secara efektif dan efisien.</p>
+        <p>Administrasi Perkantoran adalah rangkaian kegiatan yang berkaitan dengan pengelolaan data, informasi, dan pekerjaan kantor secara teratur untuk mendukung tercapainya tujuan organisasi secara efektif dan efisien.</p>
         <ul>
-          <li><b>Fungsi Administrasi:</b> Perencanaan, pengorganisasian, pengarahan, pengawasan</li>
-          <li><b>Aktivitas:</b> Korespondensi, kearsipan, pengetikan, penggandaan dokumen</li>
-          <li><b>Tujuan:</b> Menunjang kelancaran tugas pokok organisasi</li>
+          <li><b>Fungsi Administrasi:</b> Perencanaan (planning), pengorganisasian (organizing), pengarahan (directing), dan pengawasan (controlling).</li>
+          <li><b>Aktivitas Pokok:</b> Korespondensi/surat-menyurat, pengetikan dokumen, penggandaan/penyimpanan arsip, serta pengelolaan data kepegawaian.</li>
+          <li><b>Sarana Pendukung:</b> Komputer, printer, telepon, internet, dan aplikasi perkantoran (Microsoft Office, Google Workspace).</li>
+          <li><b>Tujuan:</b> Menunjang kelancaran pelaksanaan tugas pokok organisasi serta menjaga keteraturan administrasi.</li>
         </ul>
-        <p>Seorang administrator kantor harus memiliki kemampuan komunikasi, manajemen waktu, dan penguasaan teknologi perkantoran.</p>
+        <p>Seorang tenaga administrasi yang baik dituntut memiliki kemampuan komunikasi, ketelitian, manajemen waktu, dan penguasaan teknologi perkantoran modern guna mendukung produktivitas kerja.</p>
       </div>
 
       <div class="card materi-section">
         <h3>3. Kearsipan</h3>
-        <p>Kearsipan adalah proses pengelolaan dokumen/arsip mulai dari penciptaan, penggunaan, pemeliharaan, hingga penyusutan secara sistematis.</p>
+        <p>Kearsipan adalah proses pengelolaan arsip atau dokumen mulai dari penciptaan, pendistribusian, penggunaan, pemeliharaan, hingga penyusutan dengan sistem tertentu agar mudah ditemukan kembali saat diperlukan.</p>
         <ul>
-          <li><b>Jenis Arsip:</b> Arsip dinamis (aktif & inaktif) dan arsip statis</li>
-          <li><b>Sistem Penyimpanan:</b> Sistem abjad, sistem nomor, sistem subjek, sistem geografis, sistem kronologis</li>
-          <li><b>Tujuan Kearsipan:</b> Menjamin keselamatan bahan bukti pertanggungjawaban serta memudahkan penemuan kembali arsip secara cepat dan tepat</li>
+          <li><b>Jenis Arsip:</b> Arsip dinamis (arsip aktif yang masih sering digunakan dan arsip inaktif yang frekuensi penggunaannya menurun) serta arsip statis (arsip yang memiliki nilai sejarah dan disimpan permanen).</li>
+          <li><b>Sistem Penyimpanan Arsip:</b> Sistem abjad, sistem nomor, sistem subjek/masalah, sistem geografis (wilayah), dan sistem kronologis (tanggal).</li>
+          <li><b>Tujuan Kearsipan:</b> Menjamin keselamatan dan keamanan arsip sebagai bukti pertanggungjawaban, mendukung pengambilan keputusan, serta memudahkan penemuan kembali informasi secara cepat dan tepat.</li>
+          <li><b>Penyusutan Arsip:</b> Proses pengurangan arsip melalui pemindahan, pemusnahan, atau penyerahan arsip ke lembaga kearsipan sesuai dengan jadwal retensi arsip (JRA).</li>
         </ul>
-        <p>Pengelolaan arsip yang baik mendukung efisiensi kerja dan menjadi sumber informasi penting bagi organisasi.</p>
+        <p>Pengelolaan arsip yang baik sangat penting bagi organisasi karena arsip merupakan sumber informasi dan bukti otentik kegiatan organisasi yang harus dikelola secara sistematis dan profesional.</p>
       </div>
     </div>
 
@@ -197,34 +184,12 @@
   </div>
 
   <script>
-    const QUIZ_URL = "https://script.google.com/macros/s/AKfycbxDWpOfmSgc9yw9vWJMO8ryyB98p1FgGSaU5FUsLRdRFhEYBif0_OhA0z_CtqXIpurYNQ/exec";
-
     function showPage(id, el) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
 
       document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
       if (el) el.classList.add('active');
-    }
-
-    function toggleSubmenu(id) {
-      document.getElementById(id).classList.toggle('show');
-    }
-
-    function showQuiz(jenis) {
-      let title = "";
-      let param = "";
-      if (jenis === 'pancasila') { title = "Kuis Pancasila"; param = "pancasila"; }
-      if (jenis === 'perkantoran') { title = "Kuis Administrasi Perkantoran"; param = "perkantoran"; }
-      if (jenis === 'kearsipan') { title = "Kuis Kearsipan"; param = "kearsipan"; }
-
-      document.getElementById('kuisTitle').innerText = title;
-      document.getElementById('quizFrame').src = QUIZ_URL + "?jenis=" + param;
-
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('kuis').classList.add('active');
-
-      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
     }
   </script>
 
