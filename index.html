@@ -4,10 +4,16 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PT. Chandra Kirana</title>
+  <title <i class="bi bi-browser-edge"></i> Adminsitrasi Bisnis</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-    body { display:flex; min-height:100vh; background:#f4f6f9; }
+    * { font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { display:flex; min-height:100vh; background:#f4f6f9; margin:0; }
 
     /* SIDEBAR */
     .sidebar {
@@ -29,13 +35,17 @@
       cursor:pointer;
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:12px;
       transition:0.2s;
       font-size:15px;
+      color:#fff;
+      text-decoration:none;
     }
+    .menu-item i { width:20px; text-align:center; }
     .menu-item:hover, .menu-item.active {
       background:rgba(249,168,37,0.15);
       border-left:4px solid #f9a825;
+      color:#fff;
     }
 
     .content { flex:1; overflow-y:auto; }
@@ -110,9 +120,10 @@
       margin-top:25px;
     }
     .dashboard-grid .card { text-align:center; border-top:4px solid #f9a825; }
-    .dashboard-grid .card .num { font-size:32px; font-weight:bold; color:#f9a825; }
+    .dashboard-grid .card i { font-size:28px; color:#f9a825; margin-bottom:10px; }
+    .dashboard-grid .card .num { font-size:32px; font-weight:bold; color:#1a1a1a; }
 
-    /* INFO SECTION (BUILDICO STYLE) */
+    /* INFO SECTION */
     .info-section {
       display:grid;
       grid-template-columns: 1.3fr 1fr;
@@ -122,53 +133,23 @@
       overflow:hidden;
       box-shadow:0 2px 8px rgba(0,0,0,0.08);
     }
-    .info-left {
-      background:#fff;
-      padding:30px;
-    }
-    .info-left .tag {
-      color:#f9a825;
-      font-weight:bold;
-      font-size:13px;
-      letter-spacing:1px;
-      margin-bottom:10px;
-    }
-    .info-left h2 {
-      color:#1a1a1a;
-      font-size:24px;
-      margin-bottom:15px;
-      line-height:1.4;
-    }
+    .info-left { background:#fff; padding:30px; }
+    .info-left .tag { color:#f9a825; font-weight:bold; font-size:13px; letter-spacing:1px; margin-bottom:10px; }
+    .info-left h2 { color:#1a1a1a; font-size:24px; margin-bottom:15px; line-height:1.4; }
     .info-left p { color:#555; line-height:1.7; }
-    .info-right {
-      background:#f9a825;
-      color:#1a1a1a;
-      padding:30px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .info-right h3 {
-      font-size:18px;
-      margin-bottom:15px;
-      border-bottom:2px solid #1a1a1a;
-      display:inline-block;
-      padding-bottom:5px;
-    }
+    .info-right { background:#f9a825; color:#1a1a1a; padding:30px; display:flex; flex-direction:column; justify-content:center; }
+    .info-right h3 { font-size:18px; margin-bottom:15px; border-bottom:2px solid #1a1a1a; display:inline-block; padding-bottom:5px; }
     .info-right p { margin-bottom:8px; font-size:14px; }
-
-    @media (max-width: 768px) {
-      .info-section { grid-template-columns:1fr; }
-      .hero { height:auto; padding:50px 0; }
-      .hero-content { padding:0 25px; }
-    }
+    .info-right i { width:20px; }
 
     /* MATERI */
     .materi-section h3 { color:#1a1a1a; margin:15px 0 8px; }
     .materi-section ul { margin-left:20px; margin-bottom:10px; }
     .materi-section p { line-height:1.7; margin-bottom:10px; }
+    .materi-section h3 i { color:#f9a825; margin-right:8px; }
 
     .contact-info p { margin-bottom:10px; font-size:15px; }
+    .contact-info i { width:25px; color:#f9a825; }
 
     .quiz-frame-wrap iframe, .nilai-frame-wrap iframe {
       width:100%;
@@ -180,19 +161,22 @@
     @media (max-width: 768px) {
       body { flex-direction:column; }
       .sidebar { width:100%; }
+      .info-section { grid-template-columns:1fr; }
+      .hero { height:auto; padding:50px 0; }
+      .hero-content { padding:0 25px; }
     }
   </style>
 </head>
 <body>
 
   <div class="sidebar">
-    <h2>🏢 PT. CHANDRA KIRANA</h2>
+    <h2><i class="bi bi-building"></i> PT. CHANDRA KIRANA</h2>
 
-    <div class="menu-item active" onclick="showPage('dashboard', this)">🏠 Dashboard</div>
-    <div class="menu-item" onclick="showPage('kuis', this)">📝 Kuis</div>
-    <div class="menu-item" onclick="showPage('nilai', this)">📊 Lihat Nilai</div>
-    <div class="menu-item" onclick="showPage('materi', this)">📖 Materi</div>
-    <div class="menu-item" onclick="showPage('kontak', this)">✉️ Kontak</div>
+    <a class="menu-item active" onclick="showPage('dashboard', this)"><i class="bi bi-house"></i> Dashboard</a>
+    <a class="menu-item" onclick="showPage('kuis', this)"><i class="bi bi-patch-question"></i> Kuis</a>
+    <a class="menu-item" onclick="showPage('nilai', this)"><i class="bi bi-bar-chart-line"></i> Lihat Nilai</a>
+    <a class="menu-item" onclick="showPage('materi', this)"><i class="bi bi-journal-check"></i> Materi</a>
+    <a class="menu-item" onclick="showPage('kontak', this)"><i class="bi bi-person-lines-fill"></i> Kontak</a>
   </div>
 
   <div class="content">
@@ -202,10 +186,10 @@
       <div class="hero">
         <div class="hero-content">
           <h1>Membangun Kompetensi, Mewujudkan Profesionalisme</h1>
-          <p>PT. Chandra Kirana hadir sebagai platform pembelajaran dan evaluasi untuk meningkatkan pemahaman Pancasila, Administrasi Perkantoran, dan Kearsipan secara interaktif dan terukur.</p>
+          <p>Komitmen kami di Administrasi Bisnis adalah mentransformasi pengalaman belajar Anda menjadi lebih dinamis dan terukur melalui akses tanpa batas ke berbagai pustaka materi multimedia yang mutakhir, dikombinasikan dengan fitur kuis evaluatif yang presisi untuk memberikan analisis performa belajar secara langsung, sehingga Anda dapat mengidentifikasi ruang pengembangan diri dan menguasai setiap kompetensi dengan lebih optimal.</p>
           <div class="hero-buttons">
-            <a href="#" class="btn-yellow" onclick="showPage('kuis', document.querySelectorAll('.menu-item')[1]); return false;">Mulai Kuis</a>
-            <a href="#" class="btn-outline" onclick="showPage('materi', document.querySelectorAll('.menu-item')[3]); return false;">Pelajari Materi</a>
+            <a href="#" class="btn-yellow" onclick="showPage('kuis', document.querySelectorAll('.menu-item')[1]); return false;"><i class="bi bi-patch-question"></i> Pilih Kuis</a>
+            <a href="#" class="btn-outline" onclick="showPage('materi', document.querySelectorAll('.menu-item')[3]); return false;"><i class="bi bi-journals"></i> Lihat Materi</a>
           </div>
         </div>
       </div>
@@ -213,63 +197,78 @@
       <div class="inner">
         <div class="dashboard-grid">
           <div class="card">
+            <i class="fas fa-circle-question"></i>
             <div class="num">3</div>
-            <div>Jenis Kuis Tersedia</div>
+            <div>Materi Kuis yang Tersedia</div>
           </div>
           <div class="card">
+            <i class="fas fa-book"></i>
             <div class="num">3</div>
             <div>Materi Pembelajaran</div>
           </div>
           <div class="card">
+            <i class="fas fa-globe"></i>
             <div class="num">100%</div>
-            <div>Online & Gratis</div>
+            <div> Gratis</div>
           </div>
         </div>
 
         <div class="info-section">
           <div class="info-left">
-            <div class="tag">TENTANG KAMI</div>
-            <h2>Solusi Pembelajaran & Evaluasi Terbaik Sejak Hari Ini</h2>
-            <p>Kami berkomitmen menyediakan media pembelajaran yang mudah diakses dan kuis interaktif untuk menguji pemahaman peserta terhadap materi Pancasila, Administrasi Perkantoran, dan Kearsipan. Setiap hasil kuis dapat dipantau melalui fitur rekap nilai secara real-time.</p>
+            <div class="tag">Siap Belajar Apa Hari Ini?</div>
+            <h2>Buka Potensi Terbaikmu</h2>
+            <p>Kuasai Materinya, Selesaikan Kuisnya, Jadilah yang Terbaik.</p>
           </div>
           <div class="info-right">
-            <h3>PT. CHANDRA KIRANA</h3>
-            <p>📍 Makassar, Sulawesi Selatan</p>
-            <p>📞 +62 812-3456-7890</p>
-            <p>📧 admin@chandrakirana.com</p>
-            <p>🕒 Senin - Jumat, 08:00 - 16:00 WITA</p>
+            <h3>Adminstrasi Bisnis</h3>
+            <p><i class="bi bi-geo-alt"></i>> Makassar, Sulawesi Selatan</p>
+            <p><i class="bi bi-telephone"></i> +62 812-3456-7890</p>
+            <p><i class="bi bi-envelope"></i> admin@chandrakirana.com</p>
+            <p><i class="bi bi-calendar-event"></i> Senin - Jumat, 08:00 - 16:00 WITA</p>
           </div>
         </div>
       </div>
     </div>
 
-   <!-- KUIS -->
-<div class="page" id="kuis">
-  <div class="inner">
-    <h1>Kuis</h1>
-    <div class="card quiz-frame-wrap">
-      <iframe src="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec"></iframe>
+    <!-- KUIS -->
+    <div class="page" id="kuis">
+      <div class="inner">
+        <h1><i class="fas fa-pen-to-square"></i> Kuis</h1>
+        <div class="card quiz-frame-wrap">
+          <iframe src="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec"></iframe>
+        </div>
+        <div class="card text-center">
+          <p class="mb-2">AYO KERJAKANN!!</p>
+          <a href="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec" target="_blank" class="btn-yellow" style="padding:12px 26px; border-radius:6px; font-weight:bold; text-decoration:none;">
+            <i class="fas fa-arrow-up-right-from-square"></i> Buka Kuis di Tab Baru
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- NILAI -->
-<div class="page" id="nilai">
-  <div class="inner">
-    <h1>Rekap Nilai</h1>
-    <div class="card nilai-frame-wrap">
-      <iframe src="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec?page=nilai"></iframe>
+    <!-- NILAI -->
+    <div class="page" id="nilai">
+      <div class="inner">
+        <h1><i class="fas fa-chart-column"></i> Rekap Nilai</h1>
+        <div class="card nilai-frame-wrap">
+          <iframe src="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec?page=nilai"></iframe>
+        </div>
+        <div class="card text-center">
+          <p class="mb-2">LET'S GOO!!</p>
+          <a href="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec?page=nilai" target="_blank" class="btn-yellow" style="padding:12px 26px; border-radius:6px; font-weight:bold; text-decoration:none; background:#1a1a1a; color:#f9a825;">
+            <i class="fas fa-arrow-up-right-from-square"></i> Buka Nilai di Tab Baru
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <!-- MATERI -->
     <div class="page" id="materi">
       <div class="inner">
-        <h1>Materi Pembelajaran</h1>
+        <h1><i class="fas fa-book-open"></i> Materi Pembelajaran</h1>
 
         <div class="card materi-section">
-          <h3>1. Pancasila</h3>
+          <h3><i class="fas fa-landmark"></i>1. Pancasila</h3>
           <p>Pancasila adalah dasar negara dan ideologi bangsa Indonesia yang menjadi pedoman dalam kehidupan bermasyarakat, berbangsa, dan bernegara. Pancasila terdiri dari lima sila:</p>
           <ul>
             <li><b>Ketuhanan Yang Maha Esa</b> — mengandung nilai religius dan toleransi antar umat beragama.</li>
@@ -282,7 +281,7 @@
         </div>
 
         <div class="card materi-section">
-          <h3>2. Administrasi Perkantoran</h3>
+          <h3><i class="fas fa-briefcase"></i>2. Administrasi Perkantoran</h3>
           <p>Administrasi Perkantoran adalah rangkaian kegiatan yang berkaitan dengan pengelolaan data, informasi, dan pekerjaan kantor secara teratur untuk mendukung tercapainya tujuan organisasi secara efektif dan efisien.</p>
           <ul>
             <li><b>Fungsi Administrasi:</b> Perencanaan (planning), pengorganisasian (organizing), pengarahan (directing), dan pengawasan (controlling).</li>
@@ -294,7 +293,7 @@
         </div>
 
         <div class="card materi-section">
-          <h3>3. Kearsipan</h3>
+          <h3><i class="fas fa-box-archive"></i>3. Kearsipan</h3>
           <p>Kearsipan adalah proses pengelolaan arsip atau dokumen mulai dari penciptaan, pendistribusian, penggunaan, pemeliharaan, hingga penyusutan dengan sistem tertentu agar mudah ditemukan kembali saat diperlukan.</p>
           <ul>
             <li><b>Jenis Arsip:</b> Arsip dinamis (arsip aktif yang masih sering digunakan dan arsip inaktif yang frekuensi penggunaannya menurun) serta arsip statis (arsip yang memiliki nilai sejarah dan disimpan permanen).</li>
@@ -310,18 +309,21 @@
     <!-- KONTAK -->
     <div class="page" id="kontak">
       <div class="inner">
-        <h1>Kontak Kami</h1>
+        <h1><i class="bi bi-person-rolodex"></i> Kontak Kami</h1>
         <div class="card contact-info">
-          <p><b>📧 Email:</b> admin@chandrakirana.com</p>
-          <p><b>📱 WhatsApp:</b> +62 812-3456-7890</p>
-          <p><b>📍 Alamat:</b> PT. Chandra Kirana, Makassar, Sulawesi Selatan</p>
-          <p><b>🕒 Jam Operasional:</b> Senin - Jumat, 08:00 - 16:00 WITA</p>
-          <p>Silakan hubungi kami melalui kontak di atas untuk pertanyaan, saran, atau kerja sama terkait materi pembelajaran.</p>
+          <p><i class="bi bi-envelope"></i> <b>Email:</b> admin@chandrakirana.com</p>
+          <p><i class="bi bi-whatsapp"></i> <b>WhatsApp:</b> +62 812-3456-7890</p>
+          <p><i class="bi bi-geo-alt"></i> <b>Alamat:</b> Administrasi Bisnis, Makassar, Sulawesi Selatan</p>
+          <p><i class="bi bi-calendar-check"></i> <b>Jam Operasional:</b> Senin - Jumat, 08:00 - 16:00 WITA</p>
+          <p>Silakan hubungi kami melalui kontak di atas untuk pertanyaan, saran, atau kerja sama terkait materi pembelajaran. Kami akan berusaha merespon secepatnya walaupun diluar jam opersional </p>
         </div>
       </div>
     </div>
 
   </div>
+
+  <!-- Bootstrap JS (optional, for components like modals/dropdowns) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     function showPage(id, el) {
