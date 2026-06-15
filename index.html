@@ -6,169 +6,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administrasi Bisnis</title>
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    * { font-family: 'Segoe UI', Tahoma, sans-serif; }
-    body { display:flex; min-height:100vh; background:#f4f6f9; margin:0; }
+    * { font-family: 'Segoe UI', Tahoma, sans-serif; box-sizing: border-box; }
+    
+    /* Layout Utama dengan Lock Scroll Sidebar */
+    body { 
+      display: flex; 
+      height: 100vh; 
+      background: #f4f6f9; 
+      margin: 0; 
+      overflow: hidden; /* Mencegah seluruh body ter-scroll */
+    }
 
-    /* SIDEBAR */
+    /* SIDEBAR FIXED HEIGHT & SCROLLABLE INSIDE IF NEEDED */
     .sidebar {
       width: 250px;
+      height: 100vh;
       background: linear-gradient(180deg,#1a1a1a,#2b2b2b);
-      color:#fff;
-      padding:20px 0;
-      flex-shrink:0;
+      color: #fff;
+      padding: 20px 0;
+      flex-shrink: 0;
+      overflow-y: auto; /* Jika item menu terlalu banyak, sidebar bisa di-scroll internal tanpa merusak layout */
     }
     .sidebar h2 {
-      text-align:center;
-      padding:0 15px 20px;
-      border-bottom:1px solid rgba(255,255,255,0.1);
-      font-size:18px;
-      color:#f9a825;
+      text-align: center;
+      padding: 0 15px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 18px;
+      color: #f9a825;
     }
     .menu-item {
-      padding:14px 25px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      transition:0.2s;
-      font-size:15px;
-      color:#fff;
-      text-decoration:none;
+      padding: 14px 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.2s;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
     }
-    .menu-item i { width:20px; text-align:center; }
+    .menu-item i { width: 20px; text-align: center; }
     .menu-item:hover, .menu-item.active {
-      background:rgba(249,168,37,0.15);
-      border-left:4px solid #f9a825;
-      color:#fff;
+      background: rgba(249,168,37,0.15);
+      border-left: 4px solid #f9a825;
+      color: #fff;
     }
 
-    .content { flex:1; overflow-y:auto; }
-    .page { display:none; animation: fadeIn 0.4s ease; }
-    .page.active { display:block; }
+    /* KONTEN KANAN TER-SCROLL TERPISAH */
+    .content { 
+      flex: 1; 
+      height: 100vh; 
+      overflow-y: auto; /* Bagian kanan ini saja yang akan ter-scroll */
+      padding-bottom: 50px;
+    }
+    
+    .page { display: none; animation: fadeIn 0.4s ease; }
+    .page.active { display: block; }
     @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
 
-    .inner { padding:30px; }
+    .inner { padding: 30px; }
 
-    h1 { color:#1a1a1a; margin-bottom:15px; }
-    h1 i { color:#f9a825; margin-right:8px; }
+    h1 { color: #1a1a1a; margin-bottom: 15px; }
+    h1 i { color: #f9a825; margin-right: 8px; }
 
     .card {
-      background:#fff;
-      border-radius:10px;
-      padding:20px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
-      margin-bottom:20px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
     }
 
     /* HERO */
     .hero {
-      position:relative;
-      height:420px;
-      background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80');
-      background-size:cover;
-      background-position:center;
-      display:flex;
-      align-items:center;
-      color:#fff;
+      position: relative;
+      height: 420px;
+      background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      color: #fff;
     }
     .hero::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, rgba(0,0,0,0.65), rgba(0,0,0,0.25));
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(0,0,0,0.65), rgba(0,0,0,0.25));
     }
     .hero-content {
-      position:relative;
-      z-index:2;
-      padding:0 50px;
-      max-width:600px;
+      position: relative;
+      z-index: 2;
+      padding: 0 50px;
+      max-width: 600px;
     }
     .hero-content h1 {
-      color:#fff;
-      font-size:38px;
-      line-height:1.3;
-      margin-bottom:15px;
+      color: #fff;
+      font-size: 38px;
+      line-height: 1.3;
+      margin-bottom: 15px;
     }
-    .hero-content h1 i { display:none; }
+    .hero-content h1 i { display: none; }
     .hero-content p {
-      margin-bottom:25px;
-      font-size:15px;
-      opacity:0.9;
+      margin-bottom: 25px;
+      font-size: 15px;
+      opacity: 0.9;
     }
     .hero-buttons a {
-      display:inline-block;
-      padding:12px 28px;
-      border-radius:6px;
-      text-decoration:none;
-      font-weight:bold;
-      margin-right:12px;
-      font-size:14px;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-right: 12px;
+      font-size: 14px;
     }
-    .btn-yellow { background:#f9a825; color:#1a1a1a; }
-    .btn-outline { border:2px solid #fff; color:#fff; }
-    .btn-yellow:hover { background:#ffc94d; color:#1a1a1a; }
-    .btn-outline:hover { background:rgba(255,255,255,0.15); color:#fff; }
+    .btn-yellow { background: #f9a825; color: #1a1a1a; }
+    .btn-outline { border: 2px solid #fff; color: #fff; }
+    .btn-yellow:hover { background: #ffc94d; color: #1a1a1a; }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
     /* DASHBOARD GRID */
     .dashboard-grid {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-      gap:20px;
-      margin-top:25px;
+      gap: 20px;
+      margin-top: 25px;
     }
-    .dashboard-grid .card { text-align:center; border-top:4px solid #f9a825; }
-    .dashboard-grid .card i { font-size:28px; color:#f9a825; margin-bottom:10px; display:block; }
-    .dashboard-grid .card .num { font-size:32px; font-weight:bold; color:#1a1a1a; }
+    .dashboard-grid .card { text-align: center; border-top: 4px solid #f9a825; }
+    .dashboard-grid .card i { font-size: 28px; color: #f9a825; margin-bottom: 10px; display: block; }
+    .dashboard-grid .card .num { font-size: 32px; font-weight: bold; color: #1a1a1a; }
 
     /* INFO SECTION */
     .info-section {
-      display:grid;
+      display: grid;
       grid-template-columns: 1.3fr 1fr;
-      gap:0;
-      margin-top:25px;
-      border-radius:10px;
-      overflow:hidden;
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      gap: 0;
+      margin-top: 25px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    .info-left { background:#fff; padding:30px; display:flex; flex-direction:column; justify-content:center; }
-    .info-left .tag { color:#f9a825; font-weight:bold; font-size:13px; letter-spacing:1px; margin-bottom:10px; }
-    .info-left h2 { color:#1a1a1a; font-size:24px; margin-bottom:15px; line-height:1.4; }
-    .info-left p { color:#555; line-height:1.7; font-size:16px; }
-    .info-right { background:#f9a825; color:#1a1a1a; padding:30px; display:flex; flex-direction:column; justify-content:center; }
-    .info-right h3 { font-size:18px; margin-bottom:15px; border-bottom:2px solid #1a1a1a; display:inline-block; padding-bottom:5px; }
-    .info-right p { margin-bottom:8px; font-size:14px; }
-    .info-right i { width:20px; }
+    .info-left { background: #fff; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+    .info-left .tag { color: #f9a825; font-weight: bold; font-size: 13px; letter-spacing: 1px; margin-bottom: 10px; }
+    .info-left h2 { color: #1a1a1a; font-size: 24px; margin-bottom: 15px; line-height: 1.4; }
+    .info-left p { color: #555; line-height: 1.7; font-size: 16px; }
+    .info-right { background: #f9a825; color: #1a1a1a; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+    .info-right h3 { font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #1a1a1a; display: inline-block; padding-bottom: 5px; }
+    .info-right p { margin-bottom: 8px; font-size: 14px; }
+    .info-right i { width: 20px; }
 
     /* MATERI */
-    .materi-section h3 { color:#1a1a1a; margin:15px 0 8px; }
-    .materi-section ul { margin-left:20px; margin-bottom:10px; }
-    .materi-section p { line-height:1.7; margin-bottom:10px; }
-    .materi-section h3 i { color:#f9a825; margin-right:8px; }
+    .materi-section h3 { color: #1a1a1a; margin: 15px 0 8px; }
+    .materi-section ul { margin-left: 20px; margin-bottom: 10px; }
+    .materi-section p { line-height: 1.7; margin-bottom: 10px; }
+    .materi-section h3 i { color: #f9a825; margin-right: 8px; }
 
-    .contact-info p { margin-bottom:10px; font-size:15px; }
-    .contact-info i { width:25px; color:#f9a825; }
+    .contact-info p { margin-bottom: 10px; font-size: 15px; }
+    .contact-info i { width: 25px; color: #f9a825; }
 
-    .quiz-frame-wrap iframe, .nilai-frame-wrap iframe {
-      width:100%;
-      height:85vh;
-      border:none;
-      border-radius:10px;
+    /* EMBED IFRAME KUIS */
+    .quiz-frame-wrap iframe {
+      width: 100%;
+      height: 75vh;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* FILTER REKAP NILAI */
+    .filter-box {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     }
 
     @media (max-width: 768px) {
-      body { flex-direction:column; }
-      .sidebar { width:100%; }
-      .info-section { grid-template-columns:1fr; }
-      .hero { height:auto; padding:50px 0; }
-      .hero-content { padding:0 25px; }
+      body { flex-direction: column; overflow: auto; height: auto; }
+      .sidebar { width: 100%; height: auto; }
+      .content { height: auto; overflow-y: visible; }
+      .info-section { grid-template-columns: 1fr; }
+      .hero { height: auto; padding: 50px 0; }
+      .hero-content { padding: 0 25px; }
     }
   </style>
 </head>
@@ -176,22 +202,20 @@
 
   <div class="sidebar">
     <h2><i class="bi bi-building"></i> ADMINISTRASI BISNIS</h2>
-
-    <a class="menu-item active" onclick="showPage('dashboard', this)"><i class="bi bi-house"></i> Dashboard</a>
-    <a class="menu-item" onclick="showPage('kuis', this)"><i class="bi bi-patch-question"></i> Kuis</a>
-    <a class="menu-item" onclick="showPage('nilai', this)"><i class="bi bi-bar-chart-line"></i> Lihat Nilai</a>
-    <a class="menu-item" onclick="showPage('materi', this)"><i class="bi bi-journal-check"></i> Materi</a>
-    <a class="menu-item" onclick="showPage('kontak', this)"><i class="bi bi-person-lines-fill"></i> Kontak</a>
+    <a class="menu-item active" onclick="showPage('dashboard', this)"><i style="color: white;" class="bi bi-house"></i> Dashboard</a>
+    <a class="menu-item" onclick="showPage('kuis', this)"><i style="color: white;" class="bi bi-patch-question"></i> Kuis</a>
+    <a class="menu-item" onclick="showPage('nilai', this)"><i style="color: white;" class="bi bi-bar-chart-line"></i> Lihat Nilai</a>
+    <a class="menu-item" onclick="showPage('materi', this)"><i style="color: white;" class="bi bi-journal-check"></i> Materi</a>
+    <a class="menu-item" onclick="showPage('kontak', this)"><i style="color: white;" class="bi bi-person-lines-fill"></i> Kontak</a>
   </div>
 
-  <div class="content">
+  <div class="content" id="mainContent">
 
-    <!-- DASHBOARD -->
     <div class="page active" id="dashboard">
       <div class="hero">
         <div class="hero-content">
           <h1>Membangun Kompetensi, Mewujudkan Profesionalisme</h1>
-          <p>Komitmen kami di Administrasi Bisnis adalah mentransformasi pengalaman belajar Anda menjadi lebih dinamis dan terukur melalui akses tanpa batas ke berbagai pustaka materi multimedia yang mutakhir, dikombinasikan dengan fitur kuis evaluatif yang presisi untuk memberikan analisis performa belajar secara langsung, sehingga Anda dapat mengidentifikasi ruang pengembangan diri dan menguasai setiap kompetensi dengan lebih optimal.</p>
+          <p>Komitmen kami di Administrasi Bisnis adalah mentransformasi pengalaman belajar Anda menjadi lebih dinamis dan terukur melalui akses tanpa batas ke berbagai pustaka materi multimedia yang mutakhir...</p>
           <div class="hero-buttons">
             <a href="#" class="btn-yellow" onclick="showPage('kuis', document.querySelectorAll('.menu-item')[1]); return false;"><i class="bi bi-patch-question"></i> Pilih Kuis</a>
             <a href="#" class="btn-outline" onclick="showPage('materi', document.querySelectorAll('.menu-item')[3]); return false;"><i class="bi bi-journals"></i> Lihat Materi</a>
@@ -217,126 +241,153 @@
             <div>Gratis</div>
           </div>
         </div>
-
-        <div class="info-section">
-          <div class="info-left">
-            <div class="tag">Siap Belajar Apa Hari Ini?</div>
-            <h2>Buka Potensi Terbaikmu</h2>
-            <p>Kuasai Materinya, Selesaikan Kuisnya, Jadilah yang Terbaik.</p>
-          </div>
-          <div class="info-right">
-            <h3>Administrasi Bisnis</h3>
-            <p><i class="bi bi-geo-alt-fill"></i> Makassar, Sulawesi Selatan</p>
-            <p><i class="bi bi-telephone-fill"></i> +62 812-3456-7890</p>
-            <p><i class="bi bi-envelope-fill"></i> admin@chandrakirana.com</p>
-            <p><i class="bi bi-calendar-event-fill"></i> Senin - Jumat, 08:00 - 16:00 WITA</p>
-          </div>
-        </div>
       </div>
     </div>
 
-    <!-- KUIS -->
     <div class="page" id="kuis">
       <div class="inner">
-        <h1><i class="bi bi-patch-question"></i>Kuis</h1>
-        <div class="card quiz-frame-wrap">
-          <iframe src="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec"></iframe>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1><i style="color: black;" class="bi bi-patch-question"></i> Lembar Kerja Kuis</h1>
+          <button class="btn btn-dark btn-sm" onclick="showPage('dashboard', document.querySelectorAll('.menu-item')[0])">
+            <i class="bi bi-arrow-left"></i> Kembali ke Dashboard
+          </button>
         </div>
-        <div class="card text-center">
-          <p class="mb-2">AYO KERJAKAN!!</p>
-          <a href="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec" target="_blank" class="btn-yellow" style="padding:12px 26px; border-radius:6px; font-weight:bold; text-decoration:none;">
-            <i class="bi bi-box-arrow-up-right"></i> Buka Kuis di Tab Baru
-          </a>
+        <div class="quiz-frame-wrap">
+          <iframe src="https://script.google.com/macros/s/AKfycbzCOu2-xoB51Mt9mkNJ8i5BRgyOX0JHjtHfIqF04r_tp6lYoC6LcsyN6Jp8KVVs3pGVRA/exec"></iframe>
         </div>
       </div>
     </div>
 
-    <!-- NILAI -->
     <div class="page" id="nilai">
       <div class="inner">
-        <h1><i class="bi bi-bar-chart-line"></i>Rekap Nilai</h1>
-        <div class="card nilai-frame-wrap">
-          <iframe src="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec?page=nilai"></iframe>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1><i style="color: black;" class="bi bi-bar-chart-line"></i> Data Rekap Nilai</h1>
+          <button class="btn btn-dark btn-sm" onclick="showPage('dashboard', document.querySelectorAll('.menu-item')[0])">
+            <i class="bi bi-arrow-left"></i> Kembali
+          </button>
         </div>
-        <div class="card text-center">
-          <p class="mb-2">LET'S GOO!!</p>
-          <a href="https://script.google.com/macros/s/AKfycbz_fj-LzTnGm5Dyr1t3Kf6pOsB7nrHvQ8fAqLa7gX-SAgMgA4xs21Rh_ZcRP4iqdnhnBg/exec?page=nilai" target="_blank" class="btn-yellow" style="padding:12px 26px; border-radius:6px; font-weight:bold; text-decoration:none; background:#1a1a1a; color:#f9a825;">
-            <i class="bi bi-box-arrow-up-right"></i> Buka Nilai di Tab Baru
-          </a>
+
+        <div class="filter-box d-flex align-items-center gap-3">
+          <label for="selectMateriNilai" class="fw-bold m-0" style="min-width: 120px;">Pilih Kuis:</label>
+          <select id="selectMateriNilai" class="form-select" onchange="loadTableData(this.value)">
+            <option value="Pancasila">Kuis 1: Pancasila</option>
+            <option value="Adm Perkantoran">Kuis 2: Administrasi Perkantoran</option>
+            <option value="Arsip">Kuis 3: Kearsipan</option>
+          </select>
+          <button class="btn btn-warning text-dark fw-bold btn-sm" onclick="loadTableData(document.getElementById('selectMateriNilai').value)">
+            <i class="bi bi-arrow-clockwise"></i> Refresh
+          </button>
         </div>
+
+        <div class="card p-0 overflow-hidden shadow-sm">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle m-0 text-nowrap">
+              <thead class="table-dark">
+                <tr>
+                  <th>Nama Lengkap</th>
+                  <th>NIM</th>
+                  <th>Kelas</th>
+                  <th>Status</th>
+                  <th>Waktu Pengerjaan</th>
+                  <th>Nilai Akhir</th>
+                </tr>
+              </thead>
+              <tbody id="rekapTableBody">
+                <tr>
+                  <td colspan="6" class="text-center py-4">
+                    <div class="spinner-border text-warning spinner-border-sm me-2" role="status"></div> 
+                    Memuat data rekap nilai...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- MATERI -->
     <div class="page" id="materi">
       <div class="inner">
-        <h1><i class="bi bi-journal-check"></i>Materi Pembelajaran</h1>
-
+        <h1><i style="color: black;" class="bi bi-journal-check"></i>Materi Pembelajaran</h1>
         <div class="card materi-section">
-          <h3><i class="bi bi-flag-fill"></i>1. Pancasila</h3>
-          <p>Pancasila adalah dasar negara dan ideologi bangsa Indonesia yang menjadi pedoman dalam kehidupan bermasyarakat, berbangsa, dan bernegara. Pancasila terdiri dari lima sila:</p>
-          <ul>
-            <li><b>Ketuhanan Yang Maha Esa</b> — mengandung nilai religius dan toleransi antar umat beragama.</li>
-            <li><b>Kemanusiaan yang Adil dan Beradab</b> — menjunjung tinggi nilai-nilai kemanusiaan dan hak asasi manusia.</li>
-            <li><b>Persatuan Indonesia</b> — mengutamakan persatuan dan kesatuan bangsa di atas kepentingan pribadi atau golongan.</li>
-            <li><b>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan</b> — menjunjung nilai demokrasi dan musyawarah.</li>
-            <li><b>Keadilan Sosial bagi Seluruh Rakyat Indonesia</b> — mewujudkan kesejahteraan dan keadilan secara merata.</li>
-          </ul>
-          <p>Pancasila berfungsi sebagai dasar negara, pandangan hidup bangsa, sumber dari segala sumber hukum, serta pemersatu bangsa Indonesia yang beragam suku, agama, ras, dan budaya. Penerapan nilai-nilai Pancasila penting dilakukan dalam kehidupan sehari-hari, baik di lingkungan keluarga, sekolah, tempat kerja, maupun masyarakat.</p>
-        </div>
-
-        <div class="card materi-section">
-          <h3><i class="bi bi-briefcase-fill"></i>2. Administrasi Perkantoran</h3>
-          <p>Administrasi Perkantoran adalah rangkaian kegiatan yang berkaitan dengan pengelolaan data, informasi, dan pekerjaan kantor secara teratur untuk mendukung tercapainya tujuan organisasi secara efektif dan efisien.</p>
-          <ul>
-            <li><b>Fungsi Administrasi:</b> Perencanaan (planning), pengorganisasian (organizing), pengarahan (directing), dan pengawasan (controlling).</li>
-            <li><b>Aktivitas Pokok:</b> Korespondensi/surat-menyurat, pengetikan dokumen, penggandaan/penyimpanan arsip, serta pengelolaan data kepegawaian.</li>
-            <li><b>Sarana Pendukung:</b> Komputer, printer, telepon, internet, dan aplikasi perkantoran (Microsoft Office, Google Workspace).</li>
-            <li><b>Tujuan:</b> Menunjang kelancaran pelaksanaan tugas pokok organisasi serta menjaga keteraturan administrasi.</li>
-          </ul>
-          <p>Seorang tenaga administrasi yang baik dituntut memiliki kemampuan komunikasi, ketelitian, manajemen waktu, dan penguasaan teknologi perkantoran modern guna mendukung produktivitas kerja.</p>
-        </div>
-
-        <div class="card materi-section">
-          <h3><i class="bi bi-archive-fill"></i>3. Kearsipan</h3>
-          <p>Kearsipan adalah proses pengelolaan arsip atau dokumen mulai dari penciptaan, pendistribusian, penggunaan, pemeliharaan, hingga penyusutan dengan sistem tertentu agar mudah ditemukan kembali saat diperlukan.</p>
-          <ul>
-            <li><b>Jenis Arsip:</b> Arsip dinamis (arsip aktif yang masih sering digunakan dan arsip inaktif yang frekuensi penggunaannya menurun) serta arsip statis (arsip yang memiliki nilai sejarah dan disimpan permanen).</li>
-            <li><b>Sistem Penyimpanan Arsip:</b> Sistem abjad, sistem nomor, sistem subjek/masalah, sistem geografis (wilayah), dan sistem kronologis (tanggal).</li>
-            <li><b>Tujuan Kearsipan:</b> Menjamin keselamatan dan keamanan arsip sebagai bukti pertanggungjawaban, mendukung pengambilan keputusan, serta memudahkan penemuan kembali informasi secara cepat dan tepat.</li>
-            <li><b>Penyusutan Arsip:</b> Proses pengurangan arsip melalui pemindahan, pemusnahan, atau penyerahan arsip ke lembaga kearsipan sesuai dengan jadwal retensi arsip (JRA).</li>
-          </ul>
-          <p>Pengelolaan arsip yang baik sangat penting bagi organisasi karena arsip merupakan sumber informasi dan bukti otentik kegiatan organisasi yang harus dikelola secara sistematis dan profesional.</p>
+          <h3><i style="color: black;" class="bi bi-flag-fill"></i>1. Pancasila</h3>
+          <p>Pancasila adalah dasar negara dan ideologi bangsa Indonesia...</p>
         </div>
       </div>
     </div>
 
-    <!-- KONTAK -->
     <div class="page" id="kontak">
       <div class="inner">
-        <h1><i class="bi bi-person-rolodex"></i>Kontak Kami</h1>
+        <h1><i style="color: black;" class="bi bi-person-rolodex"></i>Kontak Kami</h1>
         <div class="card contact-info">
-          <p><i class="bi bi-envelope-fill"></i> <b>Email:</b> admin@chandrakirana.com</p>
-          <p><i class="bi bi-whatsapp"></i> <b>WhatsApp:</b> +62 812-3456-7890</p>
-          <p><i class="bi bi-geo-alt-fill"></i> <b>Alamat:</b> Administrasi Bisnis, Makassar, Sulawesi Selatan</p>
-          <p><i class="bi bi-calendar-check-fill"></i> <b>Jam Operasional:</b> Senin - Jumat, 08:00 - 16:00 WITA</p>
-          <p>Silakan hubungi kami melalui kontak di atas untuk pertanyaan, saran, atau kerja sama terkait materi pembelajaran. Kami akan berusaha merespon secepatnya walaupun diluar jam operasional.</p>
+          <p><i style="color: black;" class="bi bi-envelope-fill"></i> <b>Email:</b> admin@chandrakirana.com</p>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    // Fungsi Utama Navigasi Tab Menu Halaman
     function showPage(id, el) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
 
       document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
       if (el) el.classList.add('active');
+
+      // Scroll container kanan kembali ke atas otomatis setiap pindah halaman
+      document.getElementById("mainContent").scrollTop = 0;
+
+      // Fitur Otomatis: Jika user membuka menu 'nilai', langsung jalankan fungsi muat data
+      if (id === 'nilai') {
+        const defaultSubject = document.getElementById('selectMateriNilai').value;
+        loadTableData(defaultSubject);
+      }
+    }
+
+    // Fungsi Pengambil Data Nilai dari Server Google Apps Script (kode.gs)
+    function loadTableData(subject) {
+      const tbody = document.getElementById("rekapTableBody");
+      
+      // Beri animasi loading sementara saat data berganti
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center py-4">
+            <div class="spinner-border text-warning spinner-border-sm me-2" role="status"></div> 
+            Mengambil data ${subject}...
+          </td>
+        </tr>`;
+
+      // Memanggil fungsi Backend getRecap(subject) di kode.gs
+      google.script.run
+        .withSuccessHandler(function(data) {
+          let html = "";
+          
+          if (!data || data.length === 0) {
+            html = `<tr><td colspan="6" class="text-center py-4 text-muted">Belum ada data nilai untuk kuis materi ini.</td></tr>`;
+          } else {
+            data.forEach(function(item) {
+              html += `
+                <tr>
+                  <td><i class="bi bi-person-circle text-secondary me-2"></i>${item.nama}</td>
+                  <td><code>${item.nim}</code></td>
+                  <td>${item.kelas}</td>
+                  <td><span class="badge bg-success bg-opacity-75 text-white">${item.status}</span></td>
+                  <td><small class="text-muted"><i class="bi bi-clock me-1"></i>${item.waktu}</small></td>
+                  <td><strong class="text-primary fs-5">${item.nilai}</strong></td>
+                </tr>`;
+            });
+          }
+          tbody.innerHTML = html;
+        })
+        .withFailureHandler(function(err) {
+          tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4"><i class="bi bi-exclamation-triangle-fill me-2"></i>Gagal memuat data: ${err.message}</td></tr>`;
+        })
+        .getRecap(subject);
     }
   </script>
 
